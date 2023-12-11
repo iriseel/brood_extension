@@ -1,0 +1,62 @@
+{
+  "name": "brood",
+  "description": "burial is just another way of burrowing.",
+  "homepage_url": "https://github.com/llagerlof/fresh-chrome-extension",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "action": {
+    "default_title": "execute.js will run (watch the Chrome DevTools' console)"
+  },
+  "content_scripts": [
+    {
+      "run_at" : "document_start",
+      "js": ["before.js"],
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ]
+    },
+    {
+      "run_at" : "document_idle",
+      "js": ["after.js"],
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "tabs",
+    "scripting",
+    "notifications",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+  "web_accessible_resources": [
+    {"resources": ["imgs/chapters/emergence.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/chapters/inheritance.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/chapters/passing_on.png"], "matches": ["<all_urls>"]},
+
+    {"resources": ["imgs/img20231107_17445165_1.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/img20231107_17445165_2.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/img20231107_17445165_3.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/img20231107_17580860_1.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/img20231107_17580860_2.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/img20231107_18165319.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/img20231107_18174427_1.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/img20231107_18174427_2.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/img20231107_18184108_1.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/img20231107_18184108_2.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/img20231107_18184108.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/img20231107_18223046_1.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/img20231107_18223046_2.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/img20231107_18231857.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/img20231107_18273517.png"], "matches": ["<all_urls>"]}
+  ]
+}
