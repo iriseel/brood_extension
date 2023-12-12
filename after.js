@@ -1,3 +1,12 @@
+console.log("on the right site, running");
+
+// chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+//   let url = tabs[0].url;
+//   console.log(url);
+//   // use `url` here inside the callback because it's asynchronous!
+// });
+
+
 const resultsTexts = [
   "They scanned the archives and then forgot them.", "Gradually bits and pieces went missing.", "At first, it was barely noticeable — a transparent pixel here and there.", "Even if someone had been looking at the scans, they wouldn’t have been able to differentiate the image loss from the graininess inherent to the original artifact.", "But then, suddenly the eyes disappeared from a portrait tagged with a resolution of 300dpi, only the emptied street remained in a photo of a mass rally, and entire entries went missing, their links leading nowhere.",
   "Later, when searching for the origin of the disease, librarians and scientists discovered that those lost bytes had not simply evaporated into thin air.", "The moths had got to them.", "Perhaps they were attracted by their disuse, all that history unnourished by life.", "Or maybe they sensed something in those images that was imperceptible to the human eye.", "No one knows how the moths made that leap, from material to digital.", "Maybe they too were compelled to forage in new ways when all the libraries moved their collections online.", "From the moths, the history passed to the cicadas, the locusts, and the maggots.",
@@ -82,7 +91,7 @@ let chapterImg;
   imgsToReplace.forEach(img => {
     const parentDiv = img.parentNode;
     parentDiv.style.background = "white";
-    parentDiv.style.transition = "1s ease-in";
+    parentDiv.style.transition = "background 1s ease-in";
   });
   
   //text in results section
@@ -129,8 +138,11 @@ function checkScroll() {
   const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
   const scrollDifference = currentScrollTop - lastScrollTop;
 
+  // console.log(currentScrollTop);
+  // console.log(window.innerHeight);
   //??How can I make the scroll slower?
   // window.scrollTo(0, currentScrollTop - scrollDifference*.99);
+  document.querySelector("body").marginTop += scrollDifference;
 
   if (scrollDifference > 0) {
     // Start replacing text from the first text-containing element
@@ -144,7 +156,7 @@ function checkScroll() {
     // console.log(currentTop);
   }
 
-  imgsToReplace.forEach(replaceImageIfAtTop, currentScrollTop);
+  imgsToReplace.forEach((img)=>replaceImageIfAtTop(img, currentScrollTop));
 
   lastScrollTop = currentScrollTop;
 }
@@ -154,9 +166,9 @@ function replaceTextinResults() {
   if (resultsTextboxIndex < resultsTextElements.length && resultsIndex < resultsTexts.length) {
     // Replace text letter by letter in the current element
     const currentElement = resultsTextElements[resultsTextboxIndex];
-    console.log(resultsTextElements);
-    console.log(resultsTextboxIndex);
-    console.log(currentElement);
+    // console.log(resultsTextElements);
+    // console.log(resultsTextboxIndex);
+    // console.log(currentElement);
     
     // Ensure the element is visible before modifying its content
     if (isElementVisible(currentElement)) {
@@ -168,12 +180,12 @@ function replaceTextinResults() {
       
       if (resultsLetterIndex < resultsTexts[resultsIndex].length) {
         // Add one letter from resultsTexts[resultsIndex] to currentText
-        currentText += resultsTexts[resultsIndex][resultsLetterIndex];
+        currentText += resultsTexts[resultsIndex].slice(resultsLetterIndex, resultsLetterIndex + 10);
         // console.log(currentText);
-        remainingText = remainingText.slice(1);
+        remainingText = remainingText.slice(10);
         // console.log(remainingText);
         currentElement.textContent = currentText + remainingText;
-        resultsLetterIndex++;
+        resultsLetterIndex+=10;
         // console.log(resultsLetterIndex);
       } else {
         // Move to the next text and reset resultsLetterIndex
@@ -201,54 +213,54 @@ function replaceTextinResults() {
 
 //??Why doesn't this work?
 //based off my console.logs, the only difference from replaceTextinResults() is that textboxIndex never increments beyond 0 here for some reason even though it logs "empty div" and I don't reset it to 0 there
-function replaceTextInElement(textboxIndex, Elements, textIndex, texts, letterIndex) {
-  if (textboxIndex < Elements.length && textIndex < texts.length) {
-    // Replace text letter by letter in the current element
-    const currentElement = Elements[textboxIndex];
-    console.log(Elements);
-    console.log(textboxIndex);
-    console.log(currentElement);
+// function replaceTextInElement(textboxIndex, Elements, textIndex, texts, letterIndex) {
+//   if (textboxIndex < Elements.length && textIndex < texts.length) {
+//     // Replace text letter by letter in the current element
+//     const currentElement = Elements[textboxIndex];
+//     console.log(Elements);
+//     console.log(textboxIndex);
+//     console.log(currentElement);
 
-    // Ensure the element is visible before modifying its content
-    if (isElementVisible(currentElement)) {
-      if (!getClassName(currentElement, 'first')) {
-        originalText = currentElement.textContent.trim();
-        remainingText = originalText;
-      }
-      currentElement.classList.add('first');
+//     // Ensure the element is visible before modifying its content
+//     if (isElementVisible(currentElement)) {
+//       if (!getClassName(currentElement, 'first')) {
+//         originalText = currentElement.textContent.trim();
+//         remainingText = originalText;
+//       }
+//       currentElement.classList.add('first');
       
-      if (letterIndex < texts[textIndex].length) {
-        // Add one letter from texts[textIndex] to currentText
-        currentText += texts[textIndex][letterIndex];
-        // console.log(currentText);
-        remainingText = remainingText.slice(1);
-        // console.log(remainingText);
-        currentElement.textContent = currentText + remainingText;
-        letterIndex++;
-        // console.log(letterIndex);
-      } else {
-        // Move to the next text and reset letterIndex
-        textIndex++;
-        textboxIndex++;
-        letterIndex = 0;
-        originalText = "";
-        remainingText = "";
-        //making sure to delete any extra original text that hasn't been replaced by mine
-        currentElement.textContent = currentText + remainingText;
-        currentText = "";
-        console.log("moving to next text");
-      }
-    } else {
-      // If the element is not visible, move to the next one immediately
-      textboxIndex++;
-      letterIndex = 0;
-      currentText = "";
-      originalText = "";
-      remainingText = "";
-      console.log("empty div");
-    }
-  }
-}
+//       if (letterIndex < texts[textIndex].length) {
+//         // Add one letter from texts[textIndex] to currentText
+//         currentText += texts[textIndex][letterIndex];
+//         // console.log(currentText);
+//         remainingText = remainingText.slice(1);
+//         // console.log(remainingText);
+//         currentElement.textContent = currentText + remainingText;
+//         letterIndex++;
+//         // console.log(letterIndex);
+//       } else {
+//         // Move to the next text and reset letterIndex
+//         textIndex++;
+//         textboxIndex++;
+//         letterIndex = 0;
+//         originalText = "";
+//         remainingText = "";
+//         //making sure to delete any extra original text that hasn't been replaced by mine
+//         currentElement.textContent = currentText + remainingText;
+//         currentText = "";
+//         console.log("moving to next text");
+//       }
+//     } else {
+//       // If the element is not visible, move to the next one immediately
+//       textboxIndex++;
+//       letterIndex = 0;
+//       currentText = "";
+//       originalText = "";
+//       remainingText = "";
+//       console.log("empty div");
+//     }
+//   }
+// }
 
 // function replaceTextInElement(textboxIndex, Elements, textIndex, texts, letterIndex) {
 //   if (textboxIndex < Elements.length && textIndex < texts.length) {
@@ -297,6 +309,8 @@ function isElementVisible(element) {
 //IMG FUNCTIONS
 // Replace img with moth if it is scrolled to top of viewport
 function replaceImageIfAtTop(img, currentScrollTop) {
+
+  // console.log(currentScrollTop);
   function isElementAtTop(el) {
     var rect = el.getBoundingClientRect();
     return (
@@ -315,20 +329,27 @@ function replaceImageIfAtTop(img, currentScrollTop) {
     parentDiv.style.position = "relative";
     parentDiv.style.overflow = "hidden";
     parentDiv.style.background = "black";
+    img.style.transition = "all 1s ease-in-out";
+    img.style.opacity = 0;
+
     const randomMothImg = Math.floor(randomize(0, mothImgs.length - 1));
-    img.style.left = img.getBoundingClientRect().left + "px";
-    img.style.top = img.getBoundingClientRect().top + "px";
-    img.src = chrome.runtime.getURL(mothImgs[randomMothImg]);
-    img.style.position = "absolute";
-    img.style.transform = "translate(-50%,-50%)";
-    img.style.transition = "1s ease-in-out";
+    setTimeout(()=> {
+      img.src = chrome.runtime.getURL(mothImgs[randomMothImg]);
+      img.style.opacity = 1;
+      img.style.left = img.getBoundingClientRect().left + "px";
+      img.style.top = img.getBoundingClientRect().top + "px";
+      img.style.position = "absolute";
+      img.style.transform = "translate(-50%,-50%)";
+  
+      setInterval(() => flutter(img, parentDivWidth / 2, parentDivHeight / 2, parentDivWidth, parentDivHeight), 1000);
+    }, 1000);
 
-    setInterval(() => flutter(img, parentDivWidth / 2, parentDivHeight / 2, parentDivWidth, parentDivHeight), 1000);
-
-    //??Why is currentScrollTop incrementing so slowly here?
     if (currentScrollTop > window.innerHeight) {
       console.log("met");
       parentDiv.style.position = "absolute";
+      parentDiv.style.zIndex = 1000;
+
+      parentDiv.style.transition = "all 1s ease-in-out";
       setInterval(() => flutter(parentDiv, parentDivWidth, parentDivHeight, parentDivWidth, parentDivHeight), currentScrollTop);
     }
   }
@@ -361,7 +382,8 @@ function changeBG() {
   //??How can i have this as fixed to positioned relative to navContainer??
   chapterImg.style.position = "fixed";
   chapterImg.style.top = "0";
-  chapterImg.style.left = "1em";
+  chapterImg.style.left = "0";
+
   chapterImg.style.width = "100%";
   chapterImg.style.zIndex = "1000";
   chapterImg.style.width = "100%";
