@@ -18,10 +18,18 @@
     },
     {
       "run_at" : "document_idle",
-      "js": ["after.js"],
+      "js": ["loc.js"],
       "matches": [
         "https://loc.gov/*",
         "http://loc.gov/*"
+      ]
+    },
+    {
+      "run_at" : "document_idle",
+      "js": ["wiki.js"],
+      "matches": [
+        "https://*.wikipedia.org/*",
+        "http://*.wikipedia.org/*"
       ]
     }
   ],
