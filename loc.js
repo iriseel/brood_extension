@@ -125,7 +125,8 @@ let originalText = "";
 let remainingText = "";
 let currentText = "";
 
-const letterReplacementPace = 400;
+const letterReplacementPace = 4;
+// const letterReplacementPace = 15;
 
 let imgsToReplace;
 let chaptersToReplace;
@@ -138,6 +139,8 @@ let mothSize = null;
 // this code will be executed after page load
 (function() {
   console.log('after.js executed');
+
+  document.documentElement.style.overflowX = "hidden";
 
   const searchBarInput = document.querySelector(".header-search").querySelector("input");
   searchBarInput.style.fontSize = "2em";
@@ -423,10 +426,11 @@ function addEnd(){
     moth.style.marginTop = "50vh";
     endContainer.appendChild(moth);
 
-    const mothTop = moth.getBoundingClientRect().top;
+    // const mothTop = moth.getBoundingClientRect().top;
     // console.log(document.documentElement.scrollHeight);
-    const mothWidth = mapValue(mothTop, 0, document.documentElement.scrollHeight, 0, 90);
+    // const mothWidth = mapValue(mothTop, 0, document.documentElement.scrollHeight, 0, 90);
     // console.log(mothTop, mothWidth);
+    const mothWidth = randomize(10, 70);
     moth.style.width = `${mothWidth}%`;
 
     setInterval(() => flutter(moth, moth.offsetWidth/2), 800);
