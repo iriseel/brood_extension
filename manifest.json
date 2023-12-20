@@ -49,6 +49,7 @@
   ],
   "web_accessible_resources": [
     {"resources": ["imgs/chapters/emergence.png"], "matches": ["<all_urls>"]},
+    {"resources": ["imgs/chapters/coming_of_age.png"], "matches": ["<all_urls>"]},
     {"resources": ["imgs/chapters/inheritance.png"], "matches": ["<all_urls>"]},
     {"resources": ["imgs/chapters/passing_on.png"], "matches": ["<all_urls>"]},
 
@@ -67,7 +68,6 @@
     {"resources": ["imgs/img20231107_18223046_2.png"], "matches": ["<all_urls>"]},
     {"resources": ["imgs/img20231107_18231857.png"], "matches": ["<all_urls>"]},
     {"resources": ["imgs/img20231107_18273517.png"], "matches": ["<all_urls>"]},
-
 
     {"resources": ["imgs/scrollbar.png"], "matches": ["<all_urls>"]}
   ]
