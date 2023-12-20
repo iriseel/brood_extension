@@ -154,6 +154,14 @@ let mothSize = null;
 (function() {
   console.log('after.js executed');
 
+  const searchBarInput = document.querySelector(".header-search").querySelector("input");
+  searchBarInput.style.fontSize = "2em";
+  searchBarInput.style.backgroundImage = `url(${chrome.runtime.getURL("imgs/scrollbar.png")})`;
+  searchBarInput.style.backgroundSize = "100% 100%";
+  searchBarInput.style.backgroundRepeat = "no-repeat";
+  searchBarInput.style.webkitBackgroundClip = "text";
+  searchBarInput.style.webkitTextFillColor = "transparent";
+
   imgsToReplace = document.querySelectorAll("img");
   mothSize = imgsToReplace[0].offsetWidth;
   // Initial replace img when the page loads
@@ -190,15 +198,6 @@ let mothSize = null;
     button.parentNode.parentNode.style.height = "auto";
     button.parentNode.parentNode.style.overflow = "visible";
   });
-
-  const searchBar = document.querySelector(".header-search");
-  searchBar.querySelector("input").style.fontSize = "2em";
-  // const searchBarEls = searchBar.querySelectorAll("*");
-  // searchBar.style.fontSize = "4em";
-  // searchBarEls.forEach(searchBarEl => {
-  //   searchBarEl.style.fontSize = "2em";
-  // })
-
 
   window.addEventListener('scroll', checkScroll);
   
@@ -434,11 +433,11 @@ function changeBG() {
   chapterImg.src = chrome.runtime.getURL(chapterImgs[0]);
 
   navContainer.style.background = "black";
-  const allNavEls = navContainer.querySelectorAll("*");
-  allNavEls.forEach(navEl => {
-    navEl.style.display = "none";
-  });
-  // navContainer.appendChild(chapterDiv);
-  navContainer.appendChild(chapterImg);
+  // const allNavEls = navContainer.querySelectorAll("*");
+  // allNavEls.forEach(navEl => {
+  //   navEl.style.display = "none";
+  // });
+  // // navContainer.appendChild(chapterDiv);
+  // navContainer.appendChild(chapterImg);
 
 }

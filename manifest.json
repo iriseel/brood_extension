@@ -66,6 +66,9 @@
     {"resources": ["imgs/img20231107_18223046_1.png"], "matches": ["<all_urls>"]},
     {"resources": ["imgs/img20231107_18223046_2.png"], "matches": ["<all_urls>"]},
     {"resources": ["imgs/img20231107_18231857.png"], "matches": ["<all_urls>"]},
-    {"resources": ["imgs/img20231107_18273517.png"], "matches": ["<all_urls>"]}
+    {"resources": ["imgs/img20231107_18273517.png"], "matches": ["<all_urls>"]},
+
+
+    {"resources": ["imgs/scrollbar.png"], "matches": ["<all_urls>"]}
   ]
 }
